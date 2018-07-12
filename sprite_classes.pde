@@ -1,15 +1,20 @@
 //Tabia Smith
 
-//Set up the string
+//Set up the strings
 String screenscore;
 String youwin;
 String youlose;
+String timer;
+String timesup;
 
 //Declare font
 PFont AppleSDGothicNeo;
 
 int score =0;
-
+int timeleft = 15;
+int randomadd = 0;
+int count = 20;
+ 
 Sprite sArray[];
 Sprite Array1[];
 Sprite Array2[];
@@ -20,20 +25,24 @@ Sprite addsprite;
 boolean winner = false;
 boolean loser = false;
 boolean refresh = false;
+boolean respawn = false;
 
 void setup() {
+  
+
 size(600, 600);
 background(0);  
 smooth();
 frameRate(30); 
 //Create three instances of the sprites
 
- float r, g, b, a;
+float r, g, b, a;
 
 //this count is he number of sprites originally drawn
- int count = 20;
 
-//add to the list of sprites, the nummber of sprites in the list is the count
+int stars = 50;
+
+//add to the list of sprites, the number of sprites in the list is the count
  sArray = new Sprite[count];
  addsprite = new Sprite(random(0,width), random (0, height));
  
@@ -47,6 +56,13 @@ frameRate(30);
     b = random(0, 255);
     a = 0;
 
+    /*SET COLOR AND OPACITY, not sure about this 
+
+    // Set the stroke and fill of the Particle
+    sArray[i].setStroke(r, g, b, a);
+    sArray[i].setFill(r, g, b, a);  
+    */
+
   }
   
  AppleSDGothicNeo = loadFont("AppleSDGothicNeo-Heavy-20.vlw");
@@ -56,18 +72,52 @@ frameRate(30);
  
  
  void draw() {
+   
  background(0);
+ 
+ timer= "Time: " + timeleft;
+ fill(199,21,133);
+ text(timer, 500, 560);
+
+// at 30 fps,  at each second subtract 1 from the time
+ if(frameCount% 30 ==0){
+   timeleft -=1;
+   }
+   
+ if (timeleft ==-1 && sArray.length >=1 ) {
+   timeleft = 0;
+   timesup = "Times up! You missed some aliens! Press 'r' to play again!";
+   fill (199, 21, 133);
+   text(timesup, 20, 300);
+   textAlign(CENTER); 
+   noLoop();
+ }
  
  screenscore = "Score: " + score;
  fill(199,21,133);
  text(screenscore, 10, 560);
  
-  
+   
+ //for (int i = 0; i <= (width/20); i++) {
+   // for (int j = 0; j <= (height/20); j++) {
+    //  if (frameCount % 300 == 0);
+      //fill(255,255,255);
+      //ellipse(random(0,width), random(0,height), 1, 1);
+   // }
+  //}
  
 for (int i = 0; i < sArray.length; i++) {
  // Update each sprites's position with dot notation
  
-
+ 
+   // if((frameCount % 30) == 0){
+    //   sArray = new Sprite[count+=1];
+      
+    //}
+    
+ //ADD AT A RANDOM INTERVAL, not sure how to make ths work
+ ///int randomadd = int(random(10,25));
+    
     
    sArray[i].update();
  // Draw each sprite on the screen
@@ -79,10 +129,9 @@ for (int i = 0; i < sArray.length; i++) {
    
  //YOU WIN
  if (winner) {
-   youwin = "YOU WIN!";
-   fill (199, 21, 133);
-   text(youwin, width/2, height/2);
-   textAlign(CENTER);
+   youwin = "YOU WIN! Press 'r' to play again!";
+   fill(random(0, 255), 21, 133);
+   text(youwin, 130, 300);
    noLoop();
    }
    
@@ -101,15 +150,18 @@ for (int i = 0; i < sArray.length; i++) {
    }
   if(sArray.length >= 50) {
     loser = true;
-    }
-    
-//restart the game    
-   if (refresh) {
-     setup();
    }
    
    
  }
+
+   
+   //ADD TO OPACITY OVER TIME
+   /*Add to the opacity over time. Every  frame add 4.25  because 255/60frames = 4.25
+     if (frameCount % 1){
+     a+= 4.25;
+      }*/
+ 
 
 void mousePressed() {
   
@@ -135,5 +187,12 @@ void mousePressed() {
 void keyPressed(){
   if (key == 'r'){
    refresh = true;
+   
+   if (refresh) {
+     timeleft = 15;
+     score = 0;
+     setup();
+     loop();
+   }
   }
- }
+}
