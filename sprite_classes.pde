@@ -56,13 +56,7 @@ int stars = 50;
     b = random(0, 255);
     a = 0;
 
-    /*SET COLOR AND OPACITY, not sure about this 
-
-    // Set the stroke and fill of the Particle
-    sArray[i].setStroke(r, g, b, a);
-    sArray[i].setFill(r, g, b, a);  
-    */
-
+    
   }
   
  AppleSDGothicNeo = loadFont("AppleSDGothicNeo-Heavy-20.vlw");
@@ -97,34 +91,17 @@ int stars = 50;
  fill(199,21,133);
  text(screenscore, 10, 560);
  
-   
- //for (int i = 0; i <= (width/20); i++) {
-   // for (int j = 0; j <= (height/20); j++) {
-    //  if (frameCount % 300 == 0);
-      //fill(255,255,255);
-      //ellipse(random(0,width), random(0,height), 1, 1);
-   // }
-  //}
+
  
 for (int i = 0; i < sArray.length; i++) {
  // Update each sprites's position with dot notation
- 
- 
-   // if((frameCount % 30) == 0){
-    //   sArray = new Sprite[count+=1];
-      
-    //}
-    
- //ADD AT A RANDOM INTERVAL, not sure how to make ths work
- ///int randomadd = int(random(10,25));
-    
     
    sArray[i].update();
  // Draw each sprite on the screen
    sArray[i].display();
    }
 
-   //println(sArray.length);
+
   
    
  //YOU WIN
@@ -156,11 +133,7 @@ for (int i = 0; i < sArray.length; i++) {
  }
 
    
-   //ADD TO OPACITY OVER TIME
-   /*Add to the opacity over time. Every  frame add 4.25  because 255/60frames = 4.25
-     if (frameCount % 1){
-     a+= 4.25;
-      }*/
+   
  
 
 void mousePressed() {
